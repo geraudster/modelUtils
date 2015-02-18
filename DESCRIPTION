@@ -1,0 +1,9 @@
+Package: modelUtils
+Type: Package
+Title: Utility function for testing predictive models
+Version: 1.0
+Date: 2015-02-18
+Author: Géraud Dugé
+Maintainer: Géraud Dugé <geraud.dugedebernonville@gmail.com>
+Description: This packages provides functionalities to manipulate predictive models.
+License: LGPL
