@@ -7,10 +7,10 @@
 #' @export
 #' @importFrom caret train
 
-testModel <- function(trainset, testset, method) {
+testModel <- function(formula, trainset, testset, outcome, method, ...) {
   model <- list()
-  model$time <- system.time(model$fit <- train( classe ~ ., data=trainset, method=method))
+  model$time <- system.time(model$fit <- train(formula, data=trainset, method=method, ...))
   model$predictions <- predict(model$fit, newdata = testset)
-  model$confusionMatrix <- confusionMatrix(model$predictions, testset$classe)
+  model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
   model
 }
