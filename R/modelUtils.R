@@ -1,8 +1,10 @@
 #' This function fits a model and displays information about this model
 #' 
-#' @param trainset
-#' @param testset
-#' @param method
+#' @param formula The formula used to train the model
+#' @param trainset The dataset to trin the data with
+#' @param testset The dataset with test data
+#' @param outcome The outcome column name
+#' @param method The training algorithm to use (eg. glm, rpart, rf, gbm...)
 #' @return a list
 #' @export
 #' @importFrom caret train

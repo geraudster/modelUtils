@@ -4,14 +4,18 @@
 \alias{testModel}
 \title{This function fits a model and displays information about this model}
 \usage{
-testModel(trainset, testset, method)
+testModel(formula, trainset, testset, outcome, method, ...)
 }
 \arguments{
-\item{trainset}{}
+\item{formula}{The formula used to train the model}
 
-\item{testset}{}
+\item{trainset}{The dataset to trin the data with}
 
-\item{method}{}
+\item{testset}{The dataset with test data}
+
+\item{outcome}{The outcome column name}
+
+\item{method}{The training algorithm to use (eg. glm, rpart, rf, gbm...)}
 }
 \value{
 a list
