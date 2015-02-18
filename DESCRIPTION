@@ -8,3 +8,4 @@ Maintainer: Géraud Dugé <geraud.dugedebernonville@gmail.com>
 Description: This packages provides functionalities to manipulate predictive models.
 License: LGPL
 Suggests: testthat
+Imports: caret
