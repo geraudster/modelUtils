@@ -6,6 +6,7 @@
 #' @param testset The dataset with test data
 #' @param outcome The outcome column name
 #' @param method The training algorithm to use (eg. glm, rpart, rf, gbm...)
+#' @param weights Define weights as for the train method
 #' @return a list
 #' @export
 #' @importFrom caret train
