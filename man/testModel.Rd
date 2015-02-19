@@ -2,9 +2,9 @@
 % Please edit documentation in R/modelUtils.R
 \name{testModel}
 \alias{testModel}
-\title{This function fits a model and displays information about this model}
+\title{Test predictive models}
 \usage{
-testModel(formula, trainset, testset, outcome, method, ...)
+testModel(formula, trainset, testset, outcome, method, weights = NULL)
 }
 \arguments{
 \item{formula}{The formula used to train the model}

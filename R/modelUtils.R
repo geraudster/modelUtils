@@ -1,5 +1,6 @@
-#' This function fits a model and displays information about this model
+#' Test predictive models
 #' 
+#' @description This function fits a model and displays information about this model
 #' @param formula The formula used to train the model
 #' @param trainset The dataset to trin the data with
 #' @param testset The dataset with test data
@@ -9,9 +10,9 @@
 #' @export
 #' @importFrom caret train
 
-testModel <- function(formula, trainset, testset, outcome, method, ...) {
+testModel <- function(formula, trainset, testset, outcome, method, weights = NULL) {
   model <- list()
-  model$time <- system.time(model$fit <- train(formula, data=trainset, method=method, ...))
+  model$time <- system.time(model$fit <- train(formula, data=trainset, method=method, NULL, weights))
   model$predictions <- predict(model$fit, newdata = testset)
   model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
   model
