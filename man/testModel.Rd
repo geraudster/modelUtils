@@ -16,6 +16,8 @@ testModel(formula, trainset, testset, outcome, method, weights = NULL)
 \item{outcome}{The outcome column name}
 
 \item{method}{The training algorithm to use (eg. glm, rpart, rf, gbm...)}
+
+\item{weights}{Define weights as for the train method}
 }
 \value{
 a list

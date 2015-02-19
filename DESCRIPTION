@@ -9,3 +9,4 @@ Description: This packages provides functionalities to manipulate predictive mod
 License: LGPL
 Suggests: testthat, rpart, e1071
 Imports: caret
+Encoding: UTF-8
