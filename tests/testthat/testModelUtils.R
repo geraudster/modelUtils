@@ -16,3 +16,8 @@ model <- testModel(Species ~ ., training, testing, 'Species','rpart')
 test_that('Model is not empty without weights', {
   expect_is(model, 'list')
 })
+
+model <- testModel(Species ~ ., training, testing, 'Species', 'rpart', classProbs = TRUE)
+test_that('Model works with classProbs', {
+  expect_is(model$predictionsProbs, 'data.frame')
+})
