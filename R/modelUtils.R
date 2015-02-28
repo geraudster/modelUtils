@@ -31,6 +31,7 @@ testModel <- function(formula, trainset, testset, outcome, method, weights = NUL
   },
   error = function(cond) {
     message("Error caught, returning incomplete model")
+    message(cond)
   },
   finally = return(model))
 }
