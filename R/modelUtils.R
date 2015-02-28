@@ -14,18 +14,23 @@
 
 testModel <- function(formula, trainset, testset, outcome, method, weights = NULL, classProbs = FALSE) {
   model <- list()
-  model$time <- system.time(
-    model$fit <- train(formula,
-                       data=trainset,
-                       method=method,
-                       NULL,
-                       weights,
-                       trControl = trainControl(
-                         classProbs = classProbs)))
-  model$predictions <- predict(model$fit, newdata = testset)
-  if(classProbs) {
-    model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')
-  }
-  model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
-  model
+  tryCatch({
+    model$time <- system.time(
+      model$fit <- train(formula,
+                         data=trainset,
+                         method=method,
+                         NULL,
+                         weights,
+                         trControl = trainControl(
+                           classProbs = classProbs)))
+    model$predictions <- predict(model$fit, newdata = testset)
+    if(classProbs) {
+      model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')
+    }
+    model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
+  },
+  error = function(cond) {
+    message("Error caught, returning incomplete model")
+  },
+  finally = return(model))
 }
