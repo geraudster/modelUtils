@@ -12,7 +12,19 @@
 #' @export
 #' @importFrom caret train
 
-testModel <- function(formula, trainset, testset, outcome, method, weights = NULL, classProbs = FALSE) {
+testModel <- function(formula,
+                      trainset,
+                      testset,
+                      outcome,
+                      method,
+                      weights = NULL,
+                      classProbs = FALSE,
+                      trControl = NULL) {
+  internalTrControl <- if(is.null(trControl)) {
+    trainControl(classProbs = classProbs)
+  } else {
+    trControl
+  }
   model <- list()
   tryCatch({
     model$time <- system.time(
@@ -21,8 +33,7 @@ testModel <- function(formula, trainset, testset, outcome, method, weights = NUL
                          method=method,
                          NULL,
                          weights,
-                         trControl = trainControl(
-                           classProbs = classProbs)))
+                         trControl = internalTrControl))
     model$predictions <- predict(model$fit, newdata = testset)
     if(classProbs) {
       model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')

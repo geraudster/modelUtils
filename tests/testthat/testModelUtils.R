@@ -26,3 +26,11 @@ test_that('Model is partially returned on error', {
   expect_message(testModel(Species ~ ., training, testing, 'Undefined', 'rpart', classProbs = TRUE))
 })
 
+test_that('Model works with specific trainControl', {
+  tc <- trainControl(method = 'repeatedcv', number = 10, repeats = 10)
+  model <- testModel(Species ~ ., training, testing, 'Species', 'rpart',
+                     trControl = tc)
+  expect_is(model, 'list')
+})
+
+
