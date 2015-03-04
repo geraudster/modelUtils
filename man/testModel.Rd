@@ -4,7 +4,7 @@
 \alias{testModel}
 \title{Test predictive models}
 \usage{
-testModel(formula, trainset, testset, outcome, method, weights = NULL)
+testModel(formula, trainset, testset, outcome, method, ...)
 }
 \arguments{
 \item{formula}{The formula used to train the model}
@@ -18,6 +18,8 @@ testModel(formula, trainset, testset, outcome, method, weights = NULL)
 \item{method}{The training algorithm to use (eg. glm, rpart, rf, gbm...)}
 
 \item{weights}{Define weights as for the train method}
+
+\item{classProbs}{a logical; should class probabilities be computed for classification models (along with predicted values) in each resample?}
 }
 \value{
 a list

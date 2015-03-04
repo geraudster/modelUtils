@@ -18,7 +18,9 @@ test_that('Model is not empty without weights', {
 })
 
 test_that('Model works with classProbs', {
-  model <- testModel(Species ~ ., training, testing, 'Species', 'rpart', classProbs = TRUE)
+  tc <- trainControl(classProbs = TRUE)
+  model <- testModel(Species ~ ., training, testing, 'Species', 'rpart',
+                     trControl = tc)
   expect_is(model$predictionsProbs, 'data.frame')
 })
 

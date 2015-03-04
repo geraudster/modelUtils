@@ -6,8 +6,7 @@
 #' @param testset The dataset with test data
 #' @param outcome The outcome column name
 #' @param method The training algorithm to use (eg. glm, rpart, rf, gbm...)
-#' @param weights Define weights as for the train method
-#' @param classProbs a logical; should class probabilities be computed for classification models (along with predicted values) in each resample?
+#' @param ... additional parameters as specified by caret train function
 #' @return a list
 #' @export
 #' @importFrom caret train
@@ -17,26 +16,20 @@ testModel <- function(formula,
                       testset,
                       outcome,
                       method,
-                      weights = NULL,
-                      classProbs = FALSE,
-                      trControl = NULL) {
-  internalTrControl <- if(is.null(trControl)) {
-    trainControl(classProbs = classProbs)
-  } else {
-    trControl
-  }
+                      ...) {
   model <- list()
   tryCatch({
     model$time <- system.time(
       model$fit <- train(formula,
                          data=trainset,
                          method=method,
-                         NULL,
-                         weights,
-                         trControl = internalTrControl))
+                         ...))
     model$predictions <- predict(model$fit, newdata = testset)
-    if(classProbs) {
-      model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')
+
+    trControl.classProbs <- c(...)[['trControl.classProbs']]
+    if(!is.null(trControl.classProbs)) {
+      if(trControl.classProbs)
+        model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')
     }
     model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
   },
