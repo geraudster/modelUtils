@@ -19,18 +19,20 @@ testModel <- function(formula,
                       ...) {
   model <- list()
   tryCatch({
+    # fit a model and measure its execution time
     model$time <- system.time(
       model$fit <- train(formula,
                          data=trainset,
                          method=method,
                          ...))
+    
+    # get predictions
     model$predictions <- predict(model$fit, newdata = testset)
 
-    trControl.classProbs <- c(...)[['trControl.classProbs']]
-    if(!is.null(trControl.classProbs)) {
-      if(trControl.classProbs)
-        model$predictionsProbs <- predict(model$fit, newdata = testset, type = 'prob')
-    }
+    # try to get probs
+    model$predictionsProbs <- extractProb(list(model$fit), testset)
+    
+    # finally the confusionMatrix
     model$confusionMatrix <- confusionMatrix(model$predictions, testset[[outcome]])
   },
   error = function(cond) {
