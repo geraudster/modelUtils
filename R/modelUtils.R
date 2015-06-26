@@ -21,11 +21,18 @@ testModel <- function(formula,
   tryCatch({
     # fit a model and measure its execution time
     model$time <- system.time(
-      model$fit <- train(formula,
-                         data=trainset,
-                         method=method,
-                         ...))
-    
+      if(is.null(formula) || is.na(formula)){
+        outcomeColumn <- which(colnames(trainset) == outcome)
+        model$fit <- train(trainset[,-outcomeColumn],
+                           trainset[,outcomeColumn],
+                           method=method,
+                           ...)        
+      } else {
+        model$fit <- train(formula,
+                           data=trainset,
+                           method=method,
+                           ...)
+      })
     # get predictions
     model$predictions <- predict(model$fit, newdata = testset)
 

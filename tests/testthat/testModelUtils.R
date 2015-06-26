@@ -35,4 +35,8 @@ test_that('Model works with specific trainControl', {
   expect_is(model, 'list')
 })
 
+test_that('Model works without formula', {
+  model <- testModel(formula = NULL, training, testing, 'Species', 'rpart')
+  expect_is(model, 'list')
+})
 
