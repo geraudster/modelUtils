@@ -14,6 +14,7 @@ devtools::install_github('geraudster/modelUtils')
   
 ## Usage
 
+Generate a model:
 ```r
 library(modelUtils)
 data(iris)
@@ -21,4 +22,20 @@ inTrain <- createDataPartition(y=iris$Species, p=0.80, list=FALSE)
 training <- na.omit(iris[inTrain,])
 testing <- na.omit(iris[-inTrain,])
 model <- testModel(Species ~ ., training, testing, 'Species', 'rpart')
+```
+
+Then to write the predictions:
+```r
+submission <- writeSubmission(model, data.frame(id = rownames(testing), testing), 'id', 'Species', 'test')
+```
+
+Will create a file with:
+```csv
+id,Species
+14,setosa
+21,setosa
+30,setosa
+31,setosa
+32,setosa
+...
 ```

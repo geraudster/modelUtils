@@ -40,3 +40,8 @@ test_that('Model works without formula', {
   expect_is(model, 'list')
 })
 
+test_that('Submission is correctly written', {
+  model <- testModel(formula = NULL, training, testing, 'Species', 'rpart')
+  submission <- writeSubmission(model, data.frame(id = rownames(testing), testing), 'id', 'Species', 'test')
+  expect_that(submission$probs[1,1], equals(1))
+})
