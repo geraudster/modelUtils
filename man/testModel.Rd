@@ -7,9 +7,9 @@
 testModel(formula, trainset, testset, outcome, method, ...)
 }
 \arguments{
-\item{formula}{The formula used to train the model}
+\item{formula}{The formula used to train the model. If NULL, will use the non-formula train method of caret}
 
-\item{trainset}{The dataset to trin the data with}
+\item{trainset}{The dataset to train the data with}
 
 \item{testset}{The dataset with test data}
 
